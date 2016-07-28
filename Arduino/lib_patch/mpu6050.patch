@@ -1,0 +1,50 @@
+diff -cr i2cdevlib-master.orig/Arduino/MPU6050/MPU6050.h i2cdevlib-master/Arduino/MPU6050/MPU6050.h
+*** i2cdevlib-master.orig/Arduino/MPU6050/MPU6050.h	2016-07-28 15:35:21.424057756 +0900
+--- i2cdevlib-master/Arduino/MPU6050/MPU6050.h	2016-07-28 15:53:15.347358131 +0900
+***************
+*** 902,907 ****
+--- 902,908 ----
+              
+              uint8_t dmpGetEuler(float *data, Quaternion *q);
+              uint8_t dmpGetYawPitchRoll(float *data, Quaternion *q, VectorFloat *gravity);
++             uint8_t dmpGetYawPitchRoll2(float *data, Quaternion *q, VectorFloat *gravity);
+  
+              // Get Floating Point data from FIFO
+              uint8_t dmpGetAccelFloat(float *data, const uint8_t* packet=0);
+***************
+*** 1004,1009 ****
+--- 1005,1011 ----
+              
+              uint8_t dmpGetEuler(float *data, Quaternion *q);
+              uint8_t dmpGetYawPitchRoll(float *data, Quaternion *q, VectorFloat *gravity);
++             uint8_t dmpGetYawPitchRoll2(float *data, Quaternion *q, VectorFloat *gravity);
+  
+              // Get Floating Point data from FIFO
+              uint8_t dmpGetAccelFloat(float *data, const uint8_t* packet=0);
+diff -cr i2cdevlib-master.orig/Arduino/MPU6050/MPU6050_6Axis_MotionApps20.h i2cdevlib-master/Arduino/MPU6050/MPU6050_6Axis_MotionApps20.h
+*** i2cdevlib-master.orig/Arduino/MPU6050/MPU6050_6Axis_MotionApps20.h	2016-07-28 15:35:21.424057756 +0900
+--- i2cdevlib-master/Arduino/MPU6050/MPU6050_6Axis_MotionApps20.h	2016-07-28 15:49:59.811355149 +0900
+***************
+*** 690,695 ****
+--- 690,710 ----
+      data[2] = atan2(2*q -> y*q -> z - 2*q -> w*q -> x, 2*q -> w*q -> w + 2*q -> z*q -> z - 1);   // phi
+      return 0;
+  }
++ int8_t    sign;
++ 
++ uint8_t MPU6050::dmpGetYawPitchRoll2(float *data, Quaternion *q, VectorFloat *gravity) {
++     // p & r need to check for >90 rotation and correct for gravity polarity reversal
++     if (gravity -> z > 0) {sign = 1;} else {sign = -1;}
++     // yaw: (about Z axis)
++     data[0] = atan2(2*q -> x*q -> y - 2*q -> w*q -> z, 2*q -> w*q -> w + 2*q -> x*q -> x - 1);
++     // pitch: (nose up/down, about Y axis)
++     // adding tiny fraction of x2 or y2  avoids gimbal lock at cost of slight accuracy
++     data[1] = atan2(gravity -> x , sign * sqrt(0.001*gravity -> y*gravity -> y + gravity -> z*gravity -> z));
++     // roll: (tilt left/right, about X axis)   
++     data[2] = atan2(gravity -> y , sign * sqrt(0.001*gravity -> x*gravity -> x + gravity -> z*gravity -> z));
++   return 0;
++ }
++ 
+  uint8_t MPU6050::dmpGetYawPitchRoll(float *data, Quaternion *q, VectorFloat *gravity) {
+      // yaw: (about Z axis)
+      data[0] = atan2(2*q -> x*q -> y - 2*q -> w*q -> z, 2*q -> w*q -> w + 2*q -> x*q -> x - 1);

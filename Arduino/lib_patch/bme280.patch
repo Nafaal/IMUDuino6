@@ -1,0 +1,46 @@
+diff -cr SparkFun_BME280_Arduino_Library-master.orig/src/SparkFunBME280.cpp SparkFun_BME280_Arduino_Library-master/src/SparkFunBME280.cpp
+*** SparkFun_BME280_Arduino_Library-master.orig/src/SparkFunBME280.cpp	2016-07-28 15:35:13.460077635 +0900
+--- SparkFun_BME280_Arduino_Library-master/src/SparkFunBME280.cpp	2016-07-28 15:35:50.870774204 +0900
+***************
+*** 42,47 ****
+--- 42,48 ----
+  	settings.commInterface = I2C_MODE; //Can be I2C_MODE, SPI_MODE
+  	//Select address for I2C.  Does nothing for SPI
+  	settings.I2CAddress = 0x77; //Ignored for SPI_MODE
++         settings.I2CNotInit = 0;
+  	//Select CS pin for SPI.  Does nothing for I2C
+  	settings.chipSelectPin = 10;
+  	settings.runMode = 0;
+***************
+*** 70,76 ****
+  	{
+  
+  	case I2C_MODE:
+! 		Wire.begin();
+  		break;
+  
+  	case SPI_MODE:
+--- 71,79 ----
+  	{
+  
+  	case I2C_MODE:
+!                 if (!settings.I2CNotInit) {
+!                   Wire.begin();
+!                 }
+  		break;
+  
+  	case SPI_MODE:
+diff -cr SparkFun_BME280_Arduino_Library-master.orig/src/SparkFunBME280.h SparkFun_BME280_Arduino_Library-master/src/SparkFunBME280.h
+*** SparkFun_BME280_Arduino_Library-master.orig/src/SparkFunBME280.h	2016-07-28 15:35:13.460077635 +0900
+--- SparkFun_BME280_Arduino_Library-master/src/SparkFunBME280.h	2016-07-28 15:35:50.870774204 +0900
+***************
+*** 103,108 ****
+--- 103,110 ----
+  	uint8_t pressOverSample;
+  	uint8_t humidOverSample;
+  
++     uint8_t I2CNotInit;
++ 
+  };
+  
+  //Used to hold the calibration constants.  These are used
