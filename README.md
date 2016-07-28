@@ -2,7 +2,10 @@
 
 ## 概要
 
-[7IMUduino]:http://www.papa.to/kinowiki/index.php/Products/7IMUduino のための検査用ファームウェアです。
+ESP8366,3軸ジャイロセンサー,3軸加速度センサー,気象センサー,フルカラーLED,有機ELディスプレイを統合した
+[7IMUduino](http://www.papa.to/kinowiki/index.php/Products/7IMUduino) のためのファームウェアです。
+全ての機能をテストするために盛りだくさんとなっております。
+
 ESP8266モジュールを組み込んだArduino IDE(1.6.9)でビルドが可能です。
 
 ## フィーチャー
@@ -18,10 +21,10 @@ ESP8266モジュールを組み込んだArduino IDE(1.6.9)でビルドが可能�
 
 USBシリアル変換アダプター用のドライバは適切なものをインストールしておいてください。
 
-ビルドには [Arduino IDE 1.6.9]:https://www.arduino.cc/en/Main/Software が必要です。
+ビルドには [Arduino IDE 1.6.9](https://www.arduino.cc/en/Main/Software) が必要です。
 
-[ESP8266のボードデータ]:https://github.com/esp8266/Arduino を参照して、
-Arduino IDEのボードマネージャに[Staging version]:http://arduino.esp8266.com/staging/package_esp8266com_index.json を設定します。
+[ESP8266のボードデータ](https://github.com/esp8266/Arduino) を参照して、
+Arduino IDEのボードマネージャに[Staging version](http://arduino.esp8266.com/staging/package_esp8266com_index.json) を設定します。
 
 ビルドには以下のArduinoライブラリが必要です。
 
@@ -52,7 +55,7 @@ imuduino6.inoをクリックするとArduino IDEが起動します。ボード�
 ## インストール(Processing)
 
 IMUduino6のUDPパケットを受信するためにUDPTeapot.pdeというデモプログラムが含まれていますが、
-これを動作させるためにはWindows/Macなどで動作する統合開発環境[Processing]:https://processing.org/ が必要です。
+これを動作させるためにはWindows/Macなどで動作する統合開発環境[Processing](https://processing.org/) が必要です。
 
 またUDPTeapot.pdeを動作させるためには以下のProcessingライブラリが必要です。
 
