@@ -40,10 +40,10 @@ Arduino IDEのボードマネージャに[Staging version](http://arduino.esp826
 
 なお、ライブラリはデフォルトでは各ホームディレクトリのArduino/librariesディレクトリに置きます。
 
-> +libraries
->    +I2CDev
->    +MPU6050
->     ...
+> +libraries  
+>    +I2CDev  
+>    +MPU6050  
+>     ...  
 
 imuduino6.inoをクリックするとArduino IDEが起動します。ボードタイプは以下のように設定してください。
 
@@ -74,12 +74,12 @@ IMUduino6のUDPパケットを受信するためにUDPTeapot.pdeというデモ�
 なお、ライブラリはデフォルトでは各ホームディレクトリのProcessing/librariesディレクトリに置きます。
 toxiclibs-complete-20.zipを展開したディレクトリ、udp.zipを展開したディレクトリをそのままlibrariesにコピーしてください。
 
-> +libraries
->    +audioutils
->     ...
->    +udp
->    +verletphysics
->    +volumeutils
+> +libraries  
+>    +audioutils  
+>     ...  
+>    +udp  
+>    +verletphysics  
+>    +volumeutils  
 
 UDPTeapot.pdeをダブルクリックすればProcessingが起動します。
 
